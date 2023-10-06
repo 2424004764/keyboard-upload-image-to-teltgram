@@ -1,0 +1,2 @@
+# keyboard-upload-image-to-teltgram
+按下指定的组合键时将剪切板中的图片上传至telegram服务器并将图片地址写到剪切板并发出windows通知
