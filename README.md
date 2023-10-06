@@ -8,4 +8,4 @@
 将域名修改到main.py的12行，并修改日志文件的路径为你自己的文件系统的路径即可
 
 
-其中run-upload-image-to-telegram.bat为系统自启文件，将该文件按照说明中的路径放置即可在windows开机时自动运行该程序
+其中run-upload-image-to-telegram.bat为系统自启文件，将该文件按照说明中的路径放置即可在windows开机时自动运行该程序，该bat脚本中的pythonw文件和py文件根据自己的文件实际位置而定
