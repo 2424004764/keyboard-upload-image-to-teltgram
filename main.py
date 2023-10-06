@@ -98,7 +98,7 @@ def upload_clipboard_image():
         write_log("图片上传发生错误:{}".format(str(e)))
     finally:
         # 删除临时文件
-        if temp_file_path:
+        if temp_file_path and is_save_tem_file:
             os.remove(temp_file_path)
 
 
