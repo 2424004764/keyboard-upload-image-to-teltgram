@@ -1,0 +1,6 @@
+作用：将剪切板中的图片上传至https://yifang-cdn-pages-dev.fologde.com/
+
+1、安装keyboard（快捷键监听）、plyer（上传图片成功后向windows发送通知）包
+2、热键为shift+ctrl+alt+u
+3、使用pythonw
+4、启动的bat文件放在C:\Users\24240\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\run-upload-image-to-telegram.bat
