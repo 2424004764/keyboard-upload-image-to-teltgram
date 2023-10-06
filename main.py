@@ -38,6 +38,27 @@ def windows_notify(content):
     )
 
 
+# 判断本地路径的path是否为图片
+def is_local_image_path(path):
+    # 判断路径是否存在
+    if not os.path.exists(path):
+        return False
+
+    # 判断路径是否为文件
+    if not os.path.isfile(path):
+        return False
+
+    # 获取文件扩展名
+    ext = os.path.splitext(path)[1].lower()
+
+    # 判断文件扩展名是否为图片格式
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
+    if ext in image_extensions:
+        return True
+
+    return False
+
+
 def upload_clipboard_image():
     # 获取剪贴板中的图片
     image = ImageGrab.grabclipboard()
@@ -48,12 +69,17 @@ def upload_clipboard_image():
         windows_notify(not_image_tip)
         return
     write_log("开始上传")
-
+    windows_notify("开始上传")
     # 创建临时文件来保存图片
-    with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
-        temp_file_path = temp_file.name
-        image.save(temp_file_path, 'PNG')
-        write_log("temp_file_path:{}".format(temp_file_path))
+    is_save_tem_file = True  # 是否需要保存临时文件
+    if isinstance(image, list) and len(image) == 1 and is_local_image_path(image[0]):
+        is_save_tem_file = False  # 说明复制了图片的本地文件路径，就直接使用这个文件不需要临时文件了
+        temp_file_path = image[0]
+    if is_save_tem_file:
+        with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
+            temp_file_path = temp_file.name
+            image.save(temp_file_path, 'PNG')
+            write_log("temp_file_path:{}".format(temp_file_path))
 
     try:
         # 使用requests.post()方法上传图片文件
