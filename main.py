@@ -68,13 +68,18 @@ def upload_clipboard_image():
         write_log(not_image_tip)
         windows_notify(not_image_tip)
         return
+    # print(image)
     write_log("开始上传")
     windows_notify("开始上传")
     # 创建临时文件来保存图片
     is_save_tem_file = True  # 是否需要保存临时文件
-    if isinstance(image, list) and len(image) == 1 and is_local_image_path(image[0]):
+    if isinstance(image, list) and len(image) == 1:
+        if is_local_image_path(image[0]) is False:
+            windows_notify("剪切板中的地址非图片！")
+            return
         is_save_tem_file = False  # 说明复制了图片的本地文件路径，就直接使用这个文件不需要临时文件了
         temp_file_path = image[0]
+
     if is_save_tem_file:
         with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as temp_file:
             temp_file_path = temp_file.name
